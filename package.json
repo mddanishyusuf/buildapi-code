@@ -1,0 +1,17 @@
+{
+    "name": "buildapi-codebase",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "NODE_ENV=production node server.js",
+        "dev": "NODE_ENV=development nodemon server.js"
+    },
+    "dependencies": {
+        "express": "^4.19.2",
+        "mongoose": "^8.3.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7"
+    }
+}
