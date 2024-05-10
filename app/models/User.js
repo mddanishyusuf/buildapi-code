@@ -3,17 +3,19 @@ const mongoose = require('mongoose');
 
 const todoSchema = new mongoose.Schema(
     {
-        title: {
+        uid: {
             type: String,
             required: true,
+            unique: true,
         },
-        author: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+        email: {
+            type: String,
+            required: true,
+            unique: true,
         },
-        completed: {
-            type: Boolean,
-            default: false,
+        status: {
+            type: String,
+            default: 'free',
         },
     },
     { timestamps: true }
