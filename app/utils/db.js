@@ -1,7 +1,7 @@
 // app/db.js
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/todo_app', {});
+mongoose.connect(process.env.MONGODB_STRING, {});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {

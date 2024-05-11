@@ -1,4 +1,6 @@
 // server.js
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+
 const express = require('express'); // Importing Express framework
 const errorHandler = require('./app/middleware/error');
 const todoRoutes = require('./app/routes/todoRoutes'); // Importing todoRoutes module
