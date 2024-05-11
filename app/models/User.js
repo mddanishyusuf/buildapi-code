@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: 'free',
         },
+        stripe_customer: {
+            type: String,
+            default: null,
+        },
         api_key: { type: String, required: true },
     },
     { timestamps: true }
