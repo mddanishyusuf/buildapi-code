@@ -5,13 +5,27 @@ const User = require('../models/User');
 const { responseList } = require('../errors/responseList');
 
 exports.getAllTodos = async (req, res) => {
-    const { uid } = req.headers;
+    const { api_key } = req.query;
     try {
-        const user = await User.findOne({ uid });
+        const user = await User.findOne({ api_key });
         if (!user) return res.status(401).send(responseList(401));
 
         const todos = await Todo.find({ author: user }).exec();
-        res.status(200).send({ todos, user });
+        res.status(200).send(todos);
+    } catch (err) {
+        res.status(500).send(responseList(500, err.message));
+    }
+};
+
+exports.getSingleTodo = async (req, res) => {
+    const { api_key } = req.query;
+    const { todoId } = req.params;
+    try {
+        const user = await User.findOne({ api_key });
+        if (!user) return res.status(401).send(responseList(401));
+
+        const todos = await Todo.findOne({ author: user, _id: todoId }).exec();
+        res.status(200).send(todos);
     } catch (err) {
         res.status(500).send(responseList(500, err.message));
     }
@@ -19,10 +33,10 @@ exports.getAllTodos = async (req, res) => {
 
 exports.addTodo = async (req, res) => {
     try {
-        const { uid } = req.headers;
+        const { api_key } = req.query;
         const { title } = req.body;
 
-        const user = await User.findOne({ uid });
+        const user = await User.findOne({ api_key });
         if (!user) return res.status(401).send(responseList(401));
 
         const todo = new Todo({ title, author: user });
@@ -35,10 +49,10 @@ exports.addTodo = async (req, res) => {
 
 exports.updateTodo = async (req, res) => {
     try {
-        const { uid } = req.headers;
+        const { api_key } = req.query;
         const { _id, status } = req.body;
 
-        const user = await User.findOne({ uid });
+        const user = await User.findOne({ api_key });
         if (!user) return res.status(401).send(responseList(401));
 
         const todo = await Todo.findByIdAndUpdate(
@@ -57,10 +71,10 @@ exports.updateTodo = async (req, res) => {
 
 exports.deleteTodo = async (req, res) => {
     try {
-        const { uid } = req.headers;
+        const { api_key } = req.query;
         const { _id } = req.body;
 
-        const user = await User.findOne({ uid });
+        const user = await User.findOne({ api_key });
         if (!user) return res.status(401).send(responseList(401));
 
         const todo = await Todo.findByIdAndDelete(_id);

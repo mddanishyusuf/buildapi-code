@@ -1,7 +1,7 @@
 // app/models/Todo.js
 const mongoose = require('mongoose');
 
-const todoSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
     {
         uid: {
             type: String,
@@ -17,8 +17,9 @@ const todoSchema = new mongoose.Schema(
             type: String,
             default: 'free',
         },
+        api_key: { type: String, required: true },
     },
     { timestamps: true }
 );
 
-module.exports = mongoose.model('Todo', todoSchema);
+module.exports = mongoose.model('User', userSchema);
