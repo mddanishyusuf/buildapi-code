@@ -22,8 +22,8 @@ exports.createProfile = async (req, res) => {
         const user = await User.findOne({ uid });
         if (user)
             return res
-                .status(400)
-                .send(responseList(400, 'User already registered'));
+                .status(200)
+                .send(responseList(200, 'User already registered'));
 
         const userObj = {
             uid,
